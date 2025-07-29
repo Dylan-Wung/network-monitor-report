@@ -25,9 +25,9 @@
                     --toggle-circle: #ffffff; /* 開關圓點 */
                     --toggle-border: #ced4da; /* 開關邊框 */
                     --toggle-shadow: rgba(0,0,0,0.1);
-                    --button-bg: #007bff; /* Base blue for collapsed state */
-                    --button-hover-bg: #0056b3; /* Darker blue on hover */
-                    --button-expanded-bg: #0056b3; /* Darker blue for expanded state */
+                    --button-bg: #007bff;
+                    --button-text: white;
+                    --button-hover-bg: #0056b3;
                 }
 
                 /* Dark theme */
@@ -51,9 +51,9 @@
                     --toggle-circle: #ffffff;
                     --toggle-border: #495057;
                     --toggle-shadow: rgba(0,0,0,0.3);
-                    --button-bg: #0056b3; /* Darker blue for dark mode base (collapsed) */
-                    --button-hover-bg: #007bff; /* Lighter blue on hover in dark mode */
-                    --button-expanded-bg: #007bff; /* Lighter blue for expanded state in dark mode */
+                    --button-bg: #0056b3;
+                    --button-text: white;
+                    --button-hover-bg: #007bff;
                 }
 
                 body {
@@ -122,7 +122,7 @@
                 }
                 .stat-item {
                     flex: 1;
-                    min-width: 150px; /* 調整最小寬度，確保內容舒適顯示 */
+                    min-width: 140px; /* 調整最小寬度 */
                     background-color: var(--bg-color);
                     padding: 15px 20px;
                     border-radius: 10px;
@@ -144,7 +144,7 @@
                     margin-bottom: 5px;
                 }
                 .stat-value {
-                    font-size: 2.2em; /* 增大數字 */
+                    font-size: 2em; /* 增大數字 */
                     font-weight: 700;
                     line-height: 1;
                 }
@@ -177,7 +177,6 @@
                     align-items: center;
                     gap: 12px; /* 增大圖示與文字間距 */
                     transition: background-color 0.3s, color 0.3s;
-                    min-height: 44px; /* 確保觸摸目標大小 */
                 }
                 details.location-details > summary svg {
                     min-width: 22px; /* 調整圖示大小 */
@@ -223,7 +222,6 @@
                     gap: 10px; /* 增大圖示與文字間距 */
                     font-weight: 500;
                     transition: background-color 0.3s, color 0.3s;
-                    min-height: 44px; /* 確保觸摸目標大小 */
                 }
                 summary svg {
                     min-width: 18px;
@@ -277,11 +275,6 @@
                 details.location-details.has-fail > summary svg {
                     stroke: white; /* 異常時圖示變白 */
                 }
-                /* 在黑暗模式下強化異常邊框 */
-                body.dark-mode summary.summary-has-fail {
-                    border: 1px solid var(--fail-color);
-                }
-
 
                 details ul {
                     list-style: none;
@@ -301,11 +294,6 @@
                     text-overflow: ellipsis;
                     font-size: 0.95em;
                     text-align: left; /* 確保文字左對齊 */
-                    cursor: pointer; /* 點擊行時應有指標提示 */
-                }
-                details li:active, details li:hover {
-                    background-color: var(--border-color-light); /* 點擊時或懸停時的背景顏色 */
-                    transition: background-color 0.2s;
                 }
                 details li .device-name {
                     font-weight: 600;
@@ -378,9 +366,9 @@
                     font-size: 1em;
                 }
                 .system-status .threshold-info {
-                    font-size: 0.75em; /* 稍微縮小字體 */
+                    font-size: 0.8em;
                     color: var(--text-color);
-                    opacity: 0.6; /* 稍微降低透明度 */
+                    opacity: 0.7;
                     margin-left: 10px;
                     white-space: nowrap;
                 }
@@ -462,7 +450,7 @@
                 /* Dark Mode Toggle Switch */
                 .top-controls {
                     display: flex;
-                    justify-content: space-between; /* 左右對齊 */
+                    justify-content: space-between;
                     align-items: center;
                     margin-bottom: 20px;
                     flex-wrap: wrap; /* 允許換行 */
@@ -532,36 +520,22 @@
                 /* Control Buttons */
                 .control-buttons {
                     display: flex;
-                    justify-content: space-between; /* 左右對齊 */
-                    align-items: center;
-                    margin-bottom: 20px;
-                    flex-wrap: wrap; /* 允許按鈕組內換行 */
-                    gap: 15px; /* 元素間距 */
+                    gap: 10px;
+                    flex-wrap: wrap;
                 }
                 .control-buttons button {
-                    background-color: var(--button-bg); /* Default collapsed state */
-                    color: white; /* 確保文字為白色 */
-                    font-weight: bold; /* 確保文字為粗體 */
+                    background-color: var(--button-bg);
+                    color: var(--button-text);
                     border: none;
                     border-radius: 6px;
                     padding: 8px 15px;
                     cursor: pointer;
                     font-size: 0.9em;
                     transition: background-color 0.3s ease;
-                    white-space: nowrap; /* 防止文字換行 */
-                    flex-shrink: 1; /* 允許按鈕縮小 */
+                    white-space: nowrap;
                 }
                 .control-buttons button:hover {
                     background-color: var(--button-hover-bg);
-                }
-
-                /* Expanded state for buttons */
-                .control-buttons button[data-state=expanded] {
-                    background-color: var(--button-expanded-bg); /* A slightly darker shade */
-                }
-                /* Collapsed state for buttons (default is fine, but can explicitly set if needed) */
-                .control-buttons button[data-state=collapsed] {
-                    background-color: var(--button-bg); /* Base color for collapsed state */
                 }
 
 
@@ -593,18 +567,13 @@
                     }
 
                     .top-controls {
-                        flex-direction: row; /* 保持在同一行 */
-                        align-items: center;
+                        flex-direction: column;
+                        align-items: flex-end; /* 右對齊，讓開關和按鈕在右側 */
                         gap: 10px;
-                        justify-content: space-between; /* 確保左右對齊 */
                     }
                     .control-buttons {
-                        justify-content: flex-end; /* 按鈕組右對齊 */
-                        /* width: auto; 讓它根據內容自動調整寬度，而不是100% */
-                    }
-                    .theme-switch-wrapper {
-                        /* width: auto; 讓它根據內容自動調整寬度 */
-                        justify-content: flex-start; /* 開關靠左 */
+                        justify-content: flex-end; /* 按鈕右對齊 */
+                        width: 100%;
                     }
 
                     details.location-details > summary {
@@ -623,39 +592,6 @@
                     }
                     details li { font-size: 0.85em; padding: 8px 12px; gap: 5px; }
                     
-                    /* 手機版：設備詳細資訊預設隱藏 */
-                    details li .device-detail {
-                        display: none; /* 預設隱藏 */
-                        white-space: normal; /* 允許換行 */
-                        overflow: visible;
-                        text-overflow: clip;
-                    }
-                    /* 當 li 被點擊時顯示詳細資訊 */
-                    details li.show-detail .device-detail {
-                        display: block; /* 顯示 */
-                        margin-top: 5px; /* 與上方內容間距 */
-                        padding-left: 0; /* 移除左側填充 */
-                        font-size: 0.85em; /* 稍微縮小字體 */
-                    }
-                    /* 調整 li 佈局，使其在手機版面下，名稱和 IP 可以在一行，詳細資訊在下一行 */
-                    details li {
-                        flex-direction: column; /* 垂直排列 */
-                        align-items: flex-start; /* 左對齊 */
-                        padding-bottom: 5px; /* 調整底部間距 */
-                    }
-                    details li .status-dot {
-                        margin-right: 5px;
-                    }
-                    details li .device-name, details li .device-ip {
-                        white-space: normal; /* 允許換行 */
-                        text-align: left;
-                        width: 100%; /* 佔滿一行 */
-                    }
-                    details li .device-ip {
-                        margin-left: 0; /* 移除左側間距 */
-                        font-size: 0.9em; /* 稍微縮小 IP 字體 */
-                    }
-
                     .system-status { padding: 0; margin-top: 20px;}
                     .system-status h3 {
                         font-size: 1.1em;
@@ -689,6 +625,9 @@
                     }
                     .progress-bar {
                         font-size: 0.75em;
+                    }
+                    .theme-switch-wrapper {
+                        margin-bottom: 0; /* 在小螢幕下，外層 flex 容器已控制間距 */
                     }
                     .theme-switch {
                         height: 22px;
@@ -733,102 +672,37 @@
                     }
                 }
 
-                // 新增：切換所有異常區塊的展開/收合狀態
-                function toggleAnomalySections() {
-                    const anomalyLocationDetails = document.querySelectorAll('details.location-details.has-fail');
-                    const anomalyCategoryDetails = document.querySelectorAll('details:not(.location-details) summary.summary-has-fail');
-                    
-                    let anyAnomalyOpen = false;
-
-                    // 檢查是否有任何異常的地點或類別區塊是展開的
-                    anomalyLocationDetails.forEach(detail => {
-                        if (detail.hasAttribute('open')) {
-                            anyAnomalyOpen = true;
-                        }
-                    });
-                    if (!anyAnomalyOpen) { // 如果地點層級沒有展開的異常，才檢查類別層級
-                        anomalyCategoryDetails.forEach(summary => {
-                            if (summary.parentElement.hasAttribute('open')) {
-                                anyAnomalyOpen = true;
-                            }
-                        });
-                    }
-
-                    // 根據當前狀態進行展開或收合
-                    anomalyLocationDetails.forEach(detail => {
-                        if (anyAnomalyOpen) {
-                            detail.removeAttribute('open'); // 收合
-                        } else {
-                            detail.setAttribute('open', ''); // 展開
-                        }
-                    });
-
-                    anomalyCategoryDetails.forEach(summary => {
-                        const detail = summary.parentElement;
-                        if (anyAnomalyOpen) {
-                            detail.removeAttribute('open'); // 收合
-                        } else {
-                            detail.setAttribute('open', ''); // 展開
-                        }
-                    });
-
-                    // 更新按鈕文字和狀態
-                    const button = document.getElementById('toggleAnomalyBtn');
-                    if (anyAnomalyOpen) {
-                        button.textContent = '展開所有異常';
-                        button.dataset.state = 'collapsed';
-                    } else {
-                        button.textContent = '收合所有異常';
-                        button.dataset.state = 'expanded';
-                    }
-                }
-
-                // 新增：切換所有區塊的展開/收合狀態
-                function toggleAllSections() {
-                    const allDetails = document.querySelectorAll('details');
-                    let anyOpen = false;
-
-                    // 檢查是否有任何 details 元素是展開的
+                function toggleAllAnomalySections(action) {
+                    const allDetails = document.querySelectorAll('details[data-category-status]');
                     allDetails.forEach(detail => {
-                        if (detail.hasAttribute('open')) {
-                            anyOpen = true;
-                        }
-                    });
-
-                    // 根據當前狀態進行展開或收合
-                    allDetails.forEach(detail => {
-                        if (anyOpen) {
-                            detail.removeAttribute('open'); // 全部收合
-                        } else {
-                            detail.setAttribute('open', ''); // 全部展開
-                        }
-                    });
-
-                    // 更新按鈕文字和狀態
-                    const button = document.getElementById('toggleAllBtn');
-                    if (anyOpen) {
-                        button.textContent = '全部展開';
-                        button.dataset.state = 'collapsed';
-                    } else {
-                        button.textContent = '全部收合';
-                        button.dataset.state = 'expanded';
-                    }
-                }
-
-                // 新增：點擊設備列表項目時切換詳細資訊顯示
-                function setupDeviceDetailToggle() {
-                    const deviceListItems = document.querySelectorAll('details li');
-                    deviceListItems.forEach(item => {
-                        item.addEventListener('click', function(event) {
-                            // 阻止事件冒泡到父級 details 標籤，避免其收合
-                            event.stopPropagation(); 
-                            // 僅在手機版面下啟用此功能
-                            if (window.innerWidth <= 600) {
-                                this.classList.toggle('show-detail');
+                        // 如果是異常的類別 (data-category-status='FAIL')
+                        if (detail.getAttribute('data-category-status').includes('FAIL')) { // 修正為包含 'FAIL'，因為可能不是單純的 'FAIL'
+                            if (action === 'expand') {
+                                detail.setAttribute('open', '');
+                            } else if (action === 'collapse') {
+                                detail.removeAttribute('open');
                             }
-                        });
+                        }
+                    });
+
+                    const allLocationDetails = document.querySelectorAll('details.location-details');
+                    allLocationDetails.forEach(locDetail => {
+                        // 檢查該地點下是否有任何異常的 category details 仍然是 open
+                        const hasOpenAnomalyCategory = locDetail.querySelector('details[data-category-status*="FAIL"][open]'); // 修正為包含 'FAIL'
+                        if (!hasOpenAnomalyCategory && locDetail.classList.contains('has-fail')) {
+                            // 如果地點有異常，但所有異常子類別都收合了，則收合地點本身
+                             if (action === 'collapse') {
+                                locDetail.removeAttribute('open');
+                             }
+                        } else if (locDetail.classList.contains('has-fail')) {
+                            // 如果地點有異常，且有異常子類別展開，則展開地點
+                            if (action === 'expand') {
+                                locDetail.setAttribute('open', '');
+                            }
+                        }
                     });
                 }
+
 
                 // Apply theme and system status mode on load
                 document.addEventListener('DOMContentLoaded', () => {
@@ -842,64 +716,15 @@
                     // System Status Mode
                     const savedSystemMode = localStorage.getItem('systemStatusMode');
                     const systemStatusDiv = document.querySelector('.system-status');
-                    const toggleSystemModeBtn = document.getElementById('systemModeToggle');
+                    const toggleButton = document.getElementById('systemModeToggle');
                     if (savedSystemMode === 'compact') {
                         systemStatusDiv.classList.add('compact-mode');
-                        toggleSystemModeBtn.textContent = '切換至詳細模式';
+                        toggleButton.textContent = '切換至詳細模式';
                     } else {
                         // Default or saved as detailed
                         systemStatusDiv.classList.remove('compact-mode');
-                        toggleSystemModeBtn.textContent = '切換至精簡模式';
+                        toggleButton.textContent = '切換至精簡模式';
                     }
-
-                    // 初始化按鈕狀態
-                    const toggleAnomalyBtn = document.getElementById('toggleAnomalyBtn');
-                    const toggleAllBtn = document.getElementById('toggleAllBtn');
-
-                    // 判斷「展開/收合所有異常」按鈕的初始狀態
-                    const initialAnomalyLocationDetails = document.querySelectorAll('details.location-details.has-fail');
-                    const initialAnomalyCategoryDetails = document.querySelectorAll('details:not(.location-details) summary.summary-has-fail');
-                    let initialAnyAnomalyOpen = false;
-                    initialAnomalyLocationDetails.forEach(detail => {
-                        if (detail.hasAttribute('open')) {
-                            initialAnyAnomalyOpen = true;
-                        }
-                    });
-                    if (!initialAnyAnomalyOpen) {
-                        initialAnomalyCategoryDetails.forEach(summary => {
-                            if (summary.parentElement.hasAttribute('open')) {
-                                initialAnyAnomalyOpen = true;
-                            }
-                        });
-                    }
-
-                    if (initialAnyAnomalyOpen) {
-                        toggleAnomalyBtn.textContent = '收合所有異常';
-                        toggleAnomalyBtn.dataset.state = 'expanded';
-                    } else {
-                        toggleAnomalyBtn.textContent = '展開所有異常';
-                        toggleAnomalyBtn.dataset.state = 'collapsed';
-                    }
-
-                    // 判斷「全部展開/收合」按鈕的初始狀態
-                    const allDetails = document.querySelectorAll('details');
-                    let initialAnyAllOpen = false;
-                    allDetails.forEach(detail => {
-                        if (detail.hasAttribute('open')) {
-                            initialAnyAllOpen = true;
-                        }
-                    });
-
-                    if (initialAnyAllOpen) {
-                        toggleAllBtn.textContent = '全部收合';
-                        toggleAllBtn.dataset.state = 'expanded';
-                    } else {
-                        toggleAllBtn.textContent = '全部展開';
-                        toggleAllBtn.dataset.state = 'collapsed';
-                    }
-
-                    // 設置設備詳細資訊切換功能
-                    setupDeviceDetailToggle();
                 });
             </script>
 </head><body>
@@ -916,8 +741,8 @@
 </label>
 </div>
 <div class='control-buttons'>
-<button id='toggleAnomalyBtn' onclick="toggleAnomalySections()">展開/收合所有異常</button>
-<button id='toggleAllBtn' onclick="toggleAllSections()">全部展開/收合</button>
+<button onclick="toggleAllAnomalySections('expand')">展開所有異常</button>
+<button onclick="toggleAllAnomalySections('collapse')">收合所有異常</button>
 </div>
 </div>
 <h2>🌐 網路設備狀態報告</h2><p class='update-info'>每5分鐘更新一次</p>
@@ -951,7 +776,7 @@
 <div class='resource-item detailed'>
 <span class='resource-label'>CPU 使用率:</span>
 <div class='progress-container'>
-<div class='progress-bar ok' style='width: 14.0%;'><span>14.0%</span></div>
+<div class='progress-bar ok' style='width: 2.1%;'><span>2.1%</span></div>
 </div>
 <div class='resource-value'>
 <span class='ok'>(OK)</span>
@@ -960,12 +785,12 @@
 </div>
 <div class='resource-item summary'>
 <span class='summary-label'>CPU:</span>
-<span class='summary-value ok'>14.0% (OK)</span>
+<span class='summary-value ok'>2.1% (OK)</span>
 </div>
 <div class='resource-item detailed'>
 <span class='resource-label'>記憶體使用率:</span>
 <div class='progress-container'>
-<div class='progress-bar ok' style='width: 26.4%;'><span>26.4%</span></div>
+<div class='progress-bar ok' style='width: 25.8%;'><span>25.8%</span></div>
 </div>
 <div class='resource-value'>
 <span class='ok'>(OK)</span>
@@ -974,7 +799,7 @@
 </div>
 <div class='resource-item summary'>
 <span class='summary-label'>記憶體:</span>
-<span class='summary-value ok'>26.4% (OK)</span>
+<span class='summary-value ok'>25.8% (OK)</span>
 </div>
 <div class='resource-item detailed'>
 <span class='resource-label'>磁碟使用率 (/):</span>
@@ -993,12 +818,12 @@
 <div class='resource-item detailed'>
 <span class='resource-label'>平均負載 (5分鐘):</span>
 <div class='resource-value'>
-<span>0.15</span>
+<span>0.16</span>
 </div>
 </div>
 <div class='resource-item summary'>
 <span class='summary-label'>負載:</span>
-<span class='summary-value'>0.15</span>
+<span class='summary-value'>0.16</span>
 </div>
 </div>
-<p>🕒 更新時間：2025-07-07 03:24:39</p></div></body></html>
+<p>🕒 更新時間：2025-07-30 03:25:08</p></div></body></html>
